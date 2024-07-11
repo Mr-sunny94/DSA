@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define MAX 100
+
+char stack[MAX];
+char infix[MAX],postfix[MAX];  
+
+int top=-1;
+
+void push(int item)
+{
+    if(top>=MAX-1)
+    printf("Stack Overflow");
+    top++;
+    stack[top]=item;
+}
+int pop()
+{
+    if(top==-1)
+    printf("Stack Underflow");
+   
+    int item =stack[top];
+    top--;
+    return item;
+}
+
+int precedence(char symbol)
+{
+    switch(symbol)
+    {
+        case '^':
+        return 3;
+        case '/':
+        case '*':
+        return 2;
+        case '+':
+        case '-':
+        return 1;
+       
+        default:
+        return 0;
+    }
+}
+void inToPost()
+{
+    int i,j=0;
+    char symbol,next;
+    for(i=0;i<strlen(infix);i++)
+    {
+        symbol=infix[i];
+        switch(symbol)
+        {
+            case '(':
+                push(symbol);
+                break;
+            case ')':
+                while((next=pop())!='(')
+                postfix[j++]=next;
+                break;
+               
+            case '+':
+            case '-':
+            case '/':
+            case '*':
+            case '^':
+           
+            while(top!=-1 && precedence(stack[top])>=precedence(symbol))
+            postfix[j++]=pop();
+            push(symbol);
+            break;
+           
+            default:
+            postfix[j++]=symbol;
+        }
+    }
+}
+
+int main()
+{
+    printf("Enter the infix expression :");
+    fgets(infix,sizeof(infix),stdin);
+   
+    inToPost();
+    printf("The postfix expression is :%s",postfix);
+}
