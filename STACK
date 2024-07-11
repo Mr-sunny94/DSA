@@ -1,0 +1,121 @@
+#include <stdio.h>
+#define SIZE 4
+
+int top = -1, arr[SIZE];
+
+void push(int arr[], int val);
+int peek(int arr[]);
+int pop(int arr[]);
+int isEmpty();
+int isFull();
+
+int main()
+{
+    int option, val;
+    do
+    {
+        printf("\n MAIN MENU");
+        printf("\n 1. PUSH");
+        printf("\n 2. POP");
+        printf("\n 3. PEEK");
+        printf("\n 4. Is Empty");
+        printf("\n 5. Is Full");
+        printf("\n 6. EXIT");
+        printf("\nEnter your option: ");
+        scanf("%d", &option);
+        switch (option)
+        {
+        case 1:
+            printf("\nEnter the element to be added onto the stack: ");
+            scanf("%d", &val);
+            push(arr, val);
+            break;
+
+        case 2:
+            val = pop(arr);
+            if (val != -1)
+                printf("\nThe Deleted element is %d", val);
+            break;
+
+        case 3:
+            val = peek(arr);
+            if (val != -1)
+                printf("\nTOP= %d", val);
+            break;
+
+        case 4:
+            if (isEmpty())
+                printf("\nStack is Empty");
+            else
+                printf("\nStack is not Empty");
+            break;
+
+        case 5:
+            if (isFull())
+                printf("\nStack is Full");
+            else
+                printf("\nStack is not Full");
+            break;
+        }
+    } while (option != 6);
+    printf("Thank you");
+    return 0;
+}
+
+void push(int arr[], int val)
+{
+    if (top == SIZE - 1)
+    {
+        printf("\nOverflow!!");
+    }
+    else
+    {
+        top++;
+        arr[top] = val;
+    }
+}
+
+int peek(int arr[])
+{
+    if (top == -1)
+    {
+        printf("\n Stack is Empty");
+        return -1;
+    }
+    else
+    {
+        return (arr[top]);
+    }
+}
+
+int pop(int arr[])
+{
+    int val;
+    if (top == -1)
+    {
+        printf("Stack Underflow");
+        return -1;
+    }
+    else
+    {
+        val = arr[top];
+        top--;
+        return val;
+    }
+}
+
+int isEmpty()
+{
+    if (top == -1)
+        return 1;
+    else
+        return 0;
+}
+
+int isFull()
+{
+    if (top == SIZE - 1)
+        return 1;
+    else
+        return 0;
+}
