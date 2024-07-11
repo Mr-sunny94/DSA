@@ -1,0 +1,30 @@
+#include<stdio.h>
+
+int main() {
+    int a[10];
+    int i, n, new,pas;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+    printf("Enter the elements in an array:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+    printf("Original array:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d\t", a[i]);
+    }
+    printf("\nEnter the new element: ");
+    scanf("%d", &new);
+    printf("Enter the position where you want to insert an element:\n");
+    scanf("%d",&pas);
+    for (i = n; i > pas; i--) {
+        a[i] = a[i - 1];
+    }
+    a[i] = new;
+    printf("After insertion:\n");
+    n++;
+    for (i = 0; i < n; i++) {
+        printf("%d\t", a[i]);
+    }
+    return 0;
+}
